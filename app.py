@@ -9,13 +9,14 @@ import tensorflow as tf
 from flask_cors import CORS, cross_origin
 from tensorflow import keras
 from keras.models import load_model
+import os
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
 
-app = Flask(__name__,static_folder='../build', static_url_path='/')
+app = Flask(__name__)
 
 app.config['DEBUG'] = True
 
@@ -23,8 +24,9 @@ app.config['DEBUG'] = True
 @app.route("/",methods=['POST','GET'])
 
 def get_current_time():
-    
-    return render_template('Garbage.html',pred="hii")
+    full_filename = os.path.join('upload_image.jpg')
+    print(full_filename)
+    return render_template('Garbage.html',pred=full_filename)
 
 @app.route("/upload",methods=['POST','GET'])
 

@@ -172,6 +172,9 @@ body{
      .description{
       display: none;
      }}
+     .Loading{
+      display: none;
+     }
   </style>
 </head>
 <body>
@@ -183,12 +186,13 @@ body{
       <div class="image-preview preview">
         <div class='instructions'>
           
-          <img src="{{url_for('static',filename='/images/'+'upload_image.jpg')}}" id="upload_Image" name="Garbage_image" alt='upload_Image' class='upload upload_garbage'/>
+          <img src="{{url_for('static',filename='images/upload_image.jpg')}}" id="upload_Image" name="Garbage_image" alt='upload_Image' class='upload upload_garbage'/>
           <h1 class="description" style="color: #3498DB">Drop your image here</h1>
           <p class='description' style="color:#9DB2BF">Supports : JPG, JPEG2000, PNG</p>
         </div>
       </div>
       <div class="input">
+        <div class='LoadingImage'><img src="{{url_for('static',filename='images/loading.gif')}}" alt='loadingIcon' class='Loading' alt='loading'/></div>
         <input type="file" name="image" id="image-uploader" accept="image/*" style="display: none;" />
       </div>
       <h2 class="predict" style="color: #82AAE3;"></h2>
@@ -238,6 +242,8 @@ body{
   var formData = new FormData();
 
   formData.append('Garbage_image', file);
+  const Loading = document.querySelector('.Loading');
+  Loading.style.display = 'block'
 
   const response = await fetch('/upload', {
     method: 'POST',
@@ -253,7 +259,7 @@ body{
         divElement.textContent = Garbage['predict'];
         
   })
-  
+  Loading.style.display = 'none'
 });</script>
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
